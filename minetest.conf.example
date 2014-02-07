@@ -423,7 +423,20 @@
 #ipv6_server = false
 
 #
-#    Physics stuff
+# Autonomous objects
+#
+
+# Set to true to allow objects (lua entities) to remain active outside the
+# range of any player. Enable with caution.
+#autonomous_objects_allowed = false
+
+# As for active_block_range, but for objects. Can usually be set lower than
+# the player's setting.
+#objects_block_range = 1
+
+
+#
+# Physics stuff
 #
 
 #movement_acceleration_default = 3
