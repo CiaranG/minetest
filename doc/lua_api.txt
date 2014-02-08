@@ -1900,7 +1900,7 @@ and `minetest.auth_reload` call the authetification handler.
     * `searchdistance`: number of blocks to search in each direction
     * `max_jump`: maximum height difference to consider walkable
     * `max_drop`: maximum height difference to consider droppable
-    * `algorithm`: One of `"A*_noprefetch"` (default), `"A*"`, `"Dijkstra"`
+    * `algorithm`: A*
 * `minetest.spawn_tree (pos, {treedef})`
     * spawns L-System tree at given `pos` with definition in `treedef` table
 * `minetest.transforming_liquid_add(pos)`
