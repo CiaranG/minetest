@@ -83,6 +83,12 @@ function vector.direction(pos1, pos2)
 end
 
 
+function vector.interpolate(pos1, pos2, factor)
+	return {x = pos1.x + (pos2.x - pos1.x) * factor,
+	        y = pos1.y + (pos2.y - pos1.y) * factor,
+		z = pos1.z + (pos2.z - pos1.z) * factor}
+end
+
 function vector.add(a, b)
 	if type(b) == "table" then
 		return {x = a.x + b.x,

@@ -1582,6 +1582,7 @@ Vector helpers
 * `vector.round(v)`: returns a vector
 * `vector.apply(v, func)`: returns a vector
 * `vector.equals(v1, v2)`: returns a boolean
+* 'vector.interpolate(p1, p2, factor)': returns a vector
 
 For the following functions `x` can be either a vector or a number:
 
