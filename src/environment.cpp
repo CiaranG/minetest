@@ -1061,6 +1061,7 @@ void ServerEnvironment::step(float dtime)
 		// In addition to players, include active objects that are currently
 		// flagged as being autonomous
 		std::list<v3s16> objects_blockpos;
+		int autonomous_count = 0;
 		if(g_settings->getBool("autonomous_objects_allowed")) {
 			for(std::map<u16, ServerActiveObject*>::iterator
 					i = m_active_objects.begin();
@@ -1068,6 +1069,7 @@ void ServerEnvironment::step(float dtime)
 			{
 				ServerActiveObject* obj = i->second;
 				if(obj->isAutonomous()) {
+					autonomous_count++;
 					v3f objectpos = obj->getBasePosition();
 					v3s16 blockpos = getNodeBlockPos(
 						floatToInt(objectpos, BS));
@@ -1075,6 +1077,7 @@ void ServerEnvironment::step(float dtime)
 				}
 			}
 		}
+		g_profiler->avg("SEnv: num of auton. entities", autonomous_count);
 
 		/*
 			Update list of active blocks, collecting changes
@@ -1132,6 +1135,7 @@ void ServerEnvironment::step(float dtime)
 				<< " became active"<<std::endl; */
 		}
 	}
+	g_profiler->avg("SEnv: num of act. blocks", m_active_blocks.m_list.size());
 
 	/*
 		Mess around in active blocks

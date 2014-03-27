@@ -1127,7 +1127,10 @@ void Server::AsyncRunStep(bool initial_step)
 			}
 
 			// Save changed parts of map
-			m_env->getMap().save(MOD_STATE_WRITE_NEEDED);
+			{
+				ScopeProfiler sp(g_profiler, "Server: saving map");
+				m_env->getMap().save(MOD_STATE_WRITE_NEEDED);
+			}
 
 			// Save players
 			m_env->saveLoadedPlayers();
