@@ -1175,6 +1175,9 @@ void PlayerSAO::step(float dtime, bool send_recommended)
 		if(isAttached()) // Just in case we ever do send attachment position too
 			pos = m_env->getActiveObject(m_attachment_parent_id)->getBasePosition();
 		else
+			// Unlike all other entity models, the player's is arbitrarily offset
+			// with the centre one node above the base pos - hence the following
+			// addition (or rather, because of it)...
 			pos = m_player->getPosition() + v3f(0,BS*1,0);
 		std::string str = gob_cmd_update_position(
 			pos,
