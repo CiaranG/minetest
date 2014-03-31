@@ -424,6 +424,15 @@ void LuaEntitySAO::addedToEnvironment(u32 dtime_s)
 	}
 }
 
+void LuaEntitySAO::removingFromEnvironment()
+{
+	ServerActiveObject::removingFromEnvironment();
+	
+	if(m_registered){
+		m_env->getScriptIface()->luaentity_Deactivate(m_id);
+	}
+}
+
 ServerActiveObject* LuaEntitySAO::create(ServerEnvironment *env, v3f pos,
 		const std::string &data)
 {

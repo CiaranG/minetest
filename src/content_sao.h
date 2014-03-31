@@ -45,6 +45,7 @@ public:
 	u8 getSendType() const
 	{ return ACTIVEOBJECT_TYPE_GENERIC; }
 	virtual void addedToEnvironment(u32 dtime_s);
+	void removingFromEnvironment();
 	static ServerActiveObject* create(ServerEnvironment *env, v3f pos,
 			const std::string &data);
 	bool isAttached();
