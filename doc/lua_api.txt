@@ -1583,6 +1583,8 @@ Vector helpers
 * `vector.apply(v, func)`: returns a vector
 * `vector.equals(v1, v2)`: returns a boolean
 * 'vector.interpolate(p1, p2, factor)': returns a vector
+* `vector.get_yaw(p1, p2)`: returns a number
+    *Gets the yaw angle to point at p2 from p1
 
 For the following functions `x` can be either a vector or a number:
 

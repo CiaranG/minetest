@@ -137,3 +137,10 @@ function vector.divide(a, b)
 	end
 end
 
+function vector.get_yaw(pos1, pos2)
+	local dx = pos1.x - pos2.x
+	local dz = pos2.z - pos1.z
+	return math.atan2(dx, dz)
+end
+
+
