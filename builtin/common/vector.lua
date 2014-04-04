@@ -143,4 +143,13 @@ function vector.get_yaw(pos1, pos2)
 	return math.atan2(dx, dz)
 end
 
+function vector.from_speed_yaw(speed, yaw)
+	if speed == 0 then
+		return {x=0, y=0, z=0}
+	end
+	yaw = yaw + math.pi / 2
+	local x = math.cos(yaw) * speed
+	local z = math.sin(yaw) * speed
+	return {x=x, y=0, z=z}
+end
 
