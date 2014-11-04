@@ -521,12 +521,12 @@ void LuaEntitySAO::step(float dtime, bool send_recommended)
 			core::aabbox3d<f32> box = m_prop.collisionbox;
 			box.MinEdge *= BS;
 			box.MaxEdge *= BS;
-			collisionMoveResult moveresult;
 			f32 pos_max_d = BS*0.25; // Distance per iteration
 			v3f p_pos = m_base_position;
 			v3f p_velocity = m_velocity;
 			v3f p_acceleration = m_acceleration;
-			moveresult = collisionMoveSimple(m_env,m_env->getGameDef(),
+			m_last_collision_result = collisionMoveSimple(
+					m_env,m_env->getGameDef(),
 					pos_max_d, box, m_prop.stepheight, dtime,
 					p_pos, p_velocity, p_acceleration,
 					this, m_prop.collideWithObjects);
@@ -851,6 +851,11 @@ void LuaEntitySAO::setAcceleration(v3f acceleration)
 v3f LuaEntitySAO::getAcceleration()
 {
 	return m_acceleration;
+}
+
+collisionMoveResult* LuaEntitySAO::getLastCollisionResult()
+{
+	return &m_last_collision_result;
 }
 
 void LuaEntitySAO::setYaw(float yaw)

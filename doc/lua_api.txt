@@ -2330,6 +2330,8 @@ This is basically a reference to a C++ `ServerActiveObject`
       used with caution, and set back to 0 when no longer required.
       In any case, it will have no effect without a global configuration change
       on the server to enable it.
+* `get_last_collision_result()`: returns `{touching_ground=bool, collides=bool,
+    collides_xz=bool, standing_on_unloaded=bool}`
 * `settexturemod(mod)`
 * `setsprite(p={x=0,y=0}, num_frames=1, framelength=0.2,
   select_horiz_by_yawpitch=false)`

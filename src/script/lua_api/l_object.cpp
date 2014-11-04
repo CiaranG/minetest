@@ -599,6 +599,53 @@ int ObjectRef::l_getacceleration(lua_State *L)
 	return 1;
 }
 
+// get_last_collision_result(self)
+int ObjectRef::l_get_last_collision_result(lua_State *L)
+{
+	NO_MAP_LOCK_REQUIRED;
+	ObjectRef *ref = checkobject(L, 1);
+	LuaEntitySAO *co = getluaobject(ref);
+	if(co == NULL) return 0;
+	// Do it
+	collisionMoveResult* res = co->getLastCollisionResult();
+	lua_newtable(L);
+	lua_pushboolean(L, res->touching_ground);
+	lua_setfield(L, -2, "touching_ground");
+	lua_pushboolean(L, res->collides);
+	lua_setfield(L, -2, "collides");
+	lua_pushboolean(L, res->collides_xz);
+	lua_setfield(L, -2, "collides_xz");
+	lua_pushboolean(L, res->standing_on_unloaded);
+	lua_setfield(L, -2, "standing_on_unloaded");
+
+	lua_newtable(L);
+	int k = 1;
+	for(std::vector<CollisionInfo>::const_iterator
+		i = res->collisions.begin(); i != res->collisions.end(); i++){
+		const CollisionInfo& ci = *i;
+		lua_pushnumber(L, k);
+		lua_newtable(L);
+		if(ci.type == COLLISION_NODE)
+			lua_pushstring(L, "node");
+		else
+			lua_pushstring(L, "object");
+		lua_setfield(L, -2, "type");
+		push_v3s16(L, ci.node_p);
+		lua_setfield(L, -2, "node_p");
+		lua_pushboolean(L, ci.bouncy);
+		lua_setfield(L, -2, "bouncy");
+		push_v3f(L, ci.old_speed);
+		lua_setfield(L, -2, "old_speed");
+		push_v3f(L, ci.new_speed);
+		lua_setfield(L, -2, "new_speed");
+		lua_settable(L, -3);
+		k++;
+	}
+	lua_setfield(L, -2, "collisions");
+
+	return 1;
+}
+
 // setyaw(self, radians)
 int ObjectRef::l_setyaw(lua_State *L)
 {
@@ -1346,6 +1393,7 @@ const luaL_reg ObjectRef::methods[] = {
 	luamethod(ObjectRef, getvelocity),
 	luamethod(ObjectRef, setacceleration),
 	luamethod(ObjectRef, getacceleration),
+	luamethod(ObjectRef, get_last_collision_result),
 	luamethod(ObjectRef, setyaw),
 	luamethod(ObjectRef, getyaw),
 	luamethod(ObjectRef, settexturemod),
