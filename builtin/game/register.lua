@@ -123,6 +123,9 @@ function core.register_item(name, itemdef)
 	else
 		error("Unable to register item: Type is invalid: " .. dump(itemdef))
 	end
+	if not itemdef.groups then
+		itemdef.groups = {}
+	end
 
 	-- Flowing liquid uses param2
 	if itemdef.type == "node" and itemdef.liquidtype == "flowing" then
