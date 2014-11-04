@@ -1024,7 +1024,7 @@ void Server::AsyncRunStep(bool initial_step)
 			}
 			else if(event->type == MEET_BLOCK_NODE_METADATA_CHANGED)
 			{
-				infostream<<"Server: MEET_BLOCK_NODE_METADATA_CHANGED"<<std::endl;
+				//infostream<<"Server: MEET_BLOCK_NODE_METADATA_CHANGED"<<PP(event->p)<<std::endl;
 				prof.add("MEET_BLOCK_NODE_METADATA_CHANGED", 1);
 				setBlockNotSent(event->p);
 			}
