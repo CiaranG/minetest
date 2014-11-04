@@ -46,6 +46,7 @@ public:
 	{ return ACTIVEOBJECT_TYPE_GENERIC; }
 	virtual void addedToEnvironment(u32 dtime_s);
 	void removingFromEnvironment();
+	bool unlimitedTransferDistance() const;
 	static ServerActiveObject* create(ServerEnvironment *env, v3f pos,
 			const std::string &data);
 	bool isAttached();
@@ -183,6 +184,7 @@ public:
 	std::string getClientInitializationData(u16 protocol_version);
 	std::string getStaticData();
 	bool isAttached();
+	bool isAttachedTo(u16 id);
 	void step(float dtime, bool send_recommended);
 	void setBasePosition(const v3f &position);
 	void setPos(v3f pos);

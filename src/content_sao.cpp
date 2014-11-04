@@ -617,6 +617,26 @@ void LuaEntitySAO::step(float dtime, bool send_recommended)
 	}
 }
 
+bool LuaEntitySAO::unlimitedTransferDistance() const
+{
+
+	// If a player is attached to this object, we want to always send its
+	// position to clients, regardless of range. Otherwise, the player
+	// position is reported wrongly on the clients.
+	if(!g_settings->getBool("unlimited_player_transfer_distance"))
+		return false;
+	std::list<Player*> players = m_env->getPlayers();
+	for(std::list<Player*>::iterator
+			i = players.begin();
+			i != players.end(); ++i) {
+		Player *player = *i;
+		PlayerSAO* sao = player->getPlayerSAO();
+		if(sao != NULL && sao->isAttachedTo(m_id))
+			return true;
+	}
+	return false;
+}
+
 std::string LuaEntitySAO::getClientInitializationData(u16 protocol_version)
 {
 	std::ostringstream os(std::ios::binary);
@@ -1123,6 +1143,11 @@ bool PlayerSAO::isAttached()
 	if(obj)
 		return true;
 	return false;
+}
+
+bool PlayerSAO::isAttachedTo(u16 id)
+{
+	return m_attachment_parent_id == id;
 }
 
 void PlayerSAO::step(float dtime, bool send_recommended)
