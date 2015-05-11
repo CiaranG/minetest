@@ -1997,7 +1997,7 @@ and `minetest.auth_reload` call the authetification handler.
       or `nil` if no recipe was found
     * recipe entry table:
             {
-                method = 'normal' or 'cooking' or 'fuel'
+                type = 'normal' or 'cooking' or 'fuel'
                 width = 0-3, 0 means shapeless recipe
                 items = indexed [1-9] table with recipe items
                 output = string with item name and quantity
